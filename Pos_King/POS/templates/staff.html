@@ -1,0 +1,130 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    POS KING
+{% endblock %}
+
+{% block body %}
+{{stores}}
+{% if Store%}
+<div class="homemainbody">
+  <div id="status_msg">
+        <div id="success_msg" class="alert alert-success alert-dismissible fade show" style="display:none;" role="alert">
+          <div style="margin-top: -15px;" class="lookup_x" id="">&#215;</div>
+        </div>
+        <div id="faild_msg" class="alert alert-danger alert-dismissible fade show" style="display:none;" role="alert">
+          <div style="margin-top: -15px;" class="lookup_x" id="">&#215;</div>
+        </div>
+        <div id="warning_msg" class="alert alert-warning alert-dismissible fade show" style="display:none;" role="alert">
+          <div style="margin-top: -15px;" class="lookup_x" id="">&#215;</div>
+        </div>
+  </div>
+  <div id="con_delete" class="popupwin" style="z-index: 1;width:10%;margin-left:45%;border-radius: 8px;margin-top: 30vh;">
+    <span><div style="margin-top: -15px;" class="lookup_x" id="t_xxx">&#215;</div></span>
+    <h2>Confirm</h2>
+    <h4>Delete user <span style="color:blue" id="user_del"></span>?</h4>
+    <button class="btn btn-danger" id="delete_user" type="button" name="button">Delete</button>
+    </div>
+  <div id="update_pw_sec" class="popupwin" style="z-index: 1;width:10%;margin-left:45%;border-radius: 8px;margin-top: 30vh;">
+    <span><div style="margin-top: -15px;" class="lookup_x" id="t_xx">&#215;</div></span>
+    <h2>Update User Pin</h2>
+    <input class="form-control" id="password_pin" autocomplete="new-password" type="password" name="pin" placeholder="Login PIN">
+    <input class="form-group" id="password_confirmation" autocomplete="new-password" type="password" name="confirmation" placeholder="Confirm PIN">
+    <button id="update_pin_btn" type="button" name="button">Update Pin</button>
+    </div>
+  <div id="update_sec" class="popupwin" style="width: 30%;margin-left: 35%;border-radius: 8px;">
+    <span><div style="margin-top: -15px;" class="lookup_x" id="t_x">&#215;</div></span>
+    <h2>Update User Info</h2>
+    <div class="form-group">
+      <label for="Position">Position</label>
+  <select id="update_position" name="Position">
+    <option value="3">Cashier</option>
+    <option value="6">Supervisor</option>
+  </select>
+    </div>
+    <div class="form-group">
+      <p style="display: flex;">
+        <input id="update_firstname" class="form-control" autocomplete="given-name" type="text" name="firstname" placeholder="first">
+        <input id="update_lastname" class="form-control" autocomplete="family-name" type="text" name="lastname" placeholder="last">
+      </p>
+        <input id="update_username" class="form-control" autocomplete="username" autofocus type="text" name="username" placeholder="Username">
+    </div>
+    <div class="form-group">
+      <label for="dob">Date of birth:</label>
+      <br>
+    <input id="update_dob" style="width:50%;" autocomplete="bday" type="date" name="dob_date">
+    </div>
+    <div class="form-group">
+        <input id="update_email" class="form-control" autocomplete="email" type="email" name="email" placeholder="Email Address">
+    </div>
+    <button class="btn btn-primary" id="update_btn" type="button" name="button">UPDATE</button>
+    <br>
+    <div class="form-group">
+      <label for="ends">Password:</label>
+        <input class="form-control" disabled style="width: 20%;" autocomplete="new-password" type="password" name="pin" placeholder="****">
+    </div>
+    <button class="btn btn-primary" id="update_pin" type="button" name="button">Change Pin</button>
+  </div>
+
+  <div id="new_cashier_sec" class="popupwin" style="width: 30%;margin-left: 35%;border-radius: 8px;">
+    <span><div style="margin-top: -15px;" id="lookup_t_x">&#215;</div></span>
+    <h2>Create New User</h2>
+    <form action="{% url 'register_cashier' Store.name %}" method="POST" style="margin-top: 5px;">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="Position">Position</label>
+      <select id="Position" name="Position">
+        <option value="3">Cashier</option>
+        <option value="6">Supervisor</option>
+      </select>
+        </div>
+        <div class="form-group">
+          <p style="display: flex;">
+            <input class="form-control" autocomplete="given-name" type="text" name="firstname" placeholder="first">
+            <input class="form-control" autocomplete="family-name" type="text" name="lastname" placeholder="last">
+          </p>
+            <input class="form-control" autocomplete="username" autofocus type="text" name="username" placeholder="Username">
+            <input class="form-control" type="text" name="company" hidden placeholder="{{user.company}}">
+        </div>
+        <div class="form-group">
+          <label for="ends">Date of birth:</label>
+          <br>
+        <input style="width:50%;" autocomplete="bday" type="date" name="dob_date">
+        </div>
+        <div class="form-group">
+            <input class="form-control" autocomplete="email" type="email" name="email" placeholder="Email Address">
+        </div>
+        <div class="form-group">
+            <input class="form-control" autocomplete="new-password" type="password" name="pin" placeholder="Login PIN">
+        </div>
+        <div class="form-group">
+            <input class="form-control" autocomplete="new-password" type="password" name="confirmation" placeholder="Confirm PIN">
+        </div>
+        <input class="btn btn-primary" type="submit" value="Register">
+    </form>
+  </div>
+<p><h1>Kings Point Of Sale System</h1></p>
+<h4>Manage Staff</h4>
+<div id="settings_div">
+<div class="setting_options">
+  <button class="btn btn-secondary" id="add_staff_btn" type="button" name="button">Add Staff</button>
+  <button class="btn btn-secondary" id="edit_staff_btn" type="button" name="button">Edit Staff</button>
+  <button class="btn btn-secondary" id="del_staff_btn" type="button" name="button">Delete Staff</button>
+</div>
+<div class="settings_list" style="width: 20vw;border-radius: 5px;border: 3px solid #000;height: 60vh;overflow: scroll;">
+  {%if Staff%}
+  <ul style="padding-left: 1px;">
+    {% for staff in Staff %}
+    <option id="staff/{{staff.id}}" value="{{staff.first_name}}/{{staff.last_name}}/{{staff.email}}/{{staff.position}}/{{staff.dob}}/{{staff.username}}" class="list_item">{{staff.first_name}} {{staff.last_name}}</option>
+    {% endfor %}
+  </ul>
+  {%else%}
+  No Employees
+  {% endif %}
+</div>
+</div>
+</div>
+
+{% endif %}
+
+{% endblock %}

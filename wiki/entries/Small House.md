@@ -1,0 +1,1 @@
+Small houses are smaller then big houses.

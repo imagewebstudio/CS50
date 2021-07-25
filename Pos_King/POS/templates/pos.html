@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    POS KING
+{% endblock %}
+
+{% block body %}
+{{stores}}
+{% if Store %}
+<div class="mainregisterbody centertext">
+  <div id="number_amount" class="number_amount">
+    <h4>Amount</h4>
+    <input type="number" id="amount" name="amount" value="1">
+  </div>
+
+  <div id="cash_management" class="popupwin">
+    <h4>Cash on hand</h4>
+    <input type="number" id="cash_inout" name="amount" value="">
+    <button type="button" name="button">IN</button><button type="button" name="button">OUT</button>
+  </div>
+
+  <div id="item_lookup_sec" class="popupwin">
+    <div id="lookup_t_x">&#215;</div>
+    <h4>Enter Name</h4>
+    <input type="text" id="item_lookup_input" name="amount">
+    <div id="results_sec">
+    </div>
+  </div>
+
+  <div id="reciept_lookup_sec" class="popupwin">
+    <div id="lookup_x">&#215;</div>
+    <h4>Enter Reciept Number</h4>
+    <input type="text" id="rec_lookup_input" name="amount">
+    <div id="t_results_sec">
+    </div>
+  </div>
+
+  <div hidden id="store_id">{{Store.id}}</div>
+  <p><h1>Kings Point Of Sale System</h1></p>
+  <h4>Register #<div id="register_id">1</div></h4>
+  <div class="register_div">
+    <div class="register_head">
+      <div class="scan_sec">
+        <input class="upc_input" id="upc_input" type="text" name="scan_input" placeholder="Enter upc/or scan item">
+      </div>
+      <div class="total_sec">
+        Cashier: {{user.username}}
+      </div>
+    </div><br>
+    <p class="upc_text">Enter upc/or scan item</p>
+    <div class="register_body">
+        <div class="item_total_sec" id="item_total_sec">
+          <div id="item_model" class="item_model"><div class="item_tag" style="width: 6%;">#</div><div class="item_tag" style="width: 34%;">Item Name</div> <div class="item_tag" style="width: 11.33%;">Price</div><div class="item_tag" style="width: 11.33%;">Tax</div><div class="item_tag" style="width: 11.33%;">QTY</div></div>
+          <div class="item_list" id="item_list">
+            <div id="item_bill_sec"></div>
+          </div>
+          <div id="totals_sec">
+            <div id="subtotal_sec">SUB TOTAL <span style="float: right;" id="subtotal">0</span></div>
+            <div id="tax_sec">TAX <span style="float: right;" id="tax">0</span></div>
+            <div id="total_sec">TOTAL <span style="float: right;" id="total">0</span></div>
+          </div>
+        </div>
+        <div class="register_right">
+            <div class="item_view">
+              <img id="item_image" class="item_image"  src="/static/images/default_image400x400.png" alt="default image">
+              <p id="item_discription"></p>
+            </div>
+            <div class="option_button_sec">
+              <button class="register_buttons" type="button" id="misc_button" name="miscellaneous">MISC</button>
+              <button class="register_buttons" type="button" id="del_button" name="delete">DEL</button>
+              <button class="register_buttons" type="button" id="disc_button" name="discount">DISC</button><br>
+              <button class="register_buttons" type="button" id="void_button" name="void">VOID</button>
+              <button class="register_buttons" type="button" id="adj_button" name="adjust">ADJ</button>
+              <button class="register_buttons" type="button" id="cash_button" name="manage_cash">CASH</button>
+            </div>
+            <button id="checkout_button" type="button" name="button">CHECK OUT</button>
+        </div>
+    </div><br>
+    <div class="register_footer">
+      <button class="option_button" type="button" id="admin_button" name="button">Admin Auth</button>
+      <button class="option_button" type="button" id="item_lookup_button" name="button">Item Lookup</button>
+      <button class="option_button" type="button" id="Change_cashier_button" name="button">Change Cashier</button><br>
+      <button class="option_button" type="button" id="transaction_history_button" name="button">Transaction History</button>
+      <button class="option_button" type="button" id="transaction_lookup_button" name="button">Transaction Lookup</button>
+    <a href="/store_settings/{{Store.name}}"><button class="option_button" type="button" name="button">Settings</button></a>
+    </div>
+  </div>
+</div>
+
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,123 @@
+
+textarea {
+  resize: none;
+  overflow-y: scroll;
+  width: 100%;
+ }
+ .hide {
+   display: none;
+ }
+ .comments {
+   width: 100%;
+ }
+ .comment_button {
+   width: 100%;
+ }
+.navbar {
+background-color:  #9dc9fe;
+position: fixed;
+width: 100%;
+z-index: 1;
+}
+.navbar-brand {
+  color: #fff;
+}
+.userpic {
+  height: 4pc;
+  border-radius: 5px;
+}
+
+.userpicpost{
+  border-radius: 100px;
+  height: 4pc;
+}
+.post {
+  justify-content: center;
+  text-align: center;
+  padding-bottom: 2pc;
+  margin-bottom: 1pc;
+  background-color: #fff;
+  width: 60vw;
+  margin-top: 1pc;
+}
+
+.postinfo {
+  background: #fff;
+  padding-left: 1pc;
+  padding-right: 1pc;
+  width: 80%;
+}
+
+.posttext {
+  background: #fff;
+  padding-left: 1pc;
+  height: 75%;
+  width: auto;
+  border-bottom: 1px solid gray;
+  margin-bottom: .3pc;
+
+}
+
+.postuserinfo {
+  background: #9dc9ff;
+  padding: .5pc;
+  width: 20%;
+  float: left;
+  border-top-left-radius: 30px;
+}
+
+.likesec {
+  place-content: center;
+}
+
+.likebtn {
+  width: 20vw;
+  border-style: none;
+  padding-bottom: 5px;
+  background: #fff;
+  box-shadow: 0 2px 9px #dd05f8;
+  margin-right: 3vw;
+  margin-left: -1vw;
+  border-radius: 5px;
+}
+.dislikebtn {
+  width: 20vw;
+  border-style: none;
+  padding-bottom: 5px;
+  background: #fff;
+  box-shadow: 0 2px 9px #f3620d;
+  border-radius: 5px;
+}
+
+body {
+  text-align: -webkit-center;
+}
+
+.flipfa {
+  transform: scaleX(-1);
+}
+.vpost {
+  display: inline-block;
+}
+.profileinfo {
+      float: left;
+      position: fixed;
+      background-color: #fff;
+      border-radius: 5px;
+      margin-left: 1pc;
+      text-align: center;
+}
+
+.bg-light{
+    padding-top: 8%;
+}
+.pagination{
+  justify-content: center;
+  place-content: center;
+}
+.nav-link{
+  color: #fff;
+}
+#inputcontainer{
+  display: inline-grid;
+}

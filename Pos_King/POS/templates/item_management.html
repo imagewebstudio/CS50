@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    POS KING
+{% endblock %}
+
+{% block body %}
+{{stores}}
+{% if Store%}
+<div class="homemainbody">
+  <div class="popupwin" style="width: 30%;">
+
+    <form id="new_item_form" action="{% url 'make_item' Store.name %}" method="POST">
+        {% csrf_token %}
+        <label for="title"><h4>Create New Item</h4></label>
+        <div class="form-group">
+
+          <label for="stat">Status</label>
+          <select id="status" name="status">
+            <option value="9">Active</option>
+            <option value="3">Inactive</option>
+          </select>
+        </div>
+        <div class="form-group">
+        <div class="form-group" style="display: flex;">
+            <input class="form-control pricetax_in" style="width:30%;margin-left: 20%;" type="number" name="price" placeholder="Price">
+            <input class="form-control pricetax_in" style="width:30%;margin-left: 10px;" type="number" name="tax" placeholder="Tax %">
+        </div>
+            <input class="form-control" type="text" name="title" placeholder="Product Name">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="text" name="discription" placeholder="Item Discription">
+        </div>
+        <div class="form-group">
+            <label for="ends">Item Image</label>
+            <input type="file" id="image" name="image" accept="image/*">
+        </div>
+        <div class="form-group">
+            <input class="form-control" type="text" name="barcode" placeholder="UPC/Barcode">
+            <input type="text" hidden name="store" value="{{Store}}">
+        </div>
+        <input id="create_item_button" class="btn btn-primary" type="submit" value="Create">
+    </form>
+  </div>
+<p><h1>Kings Point Of Sale System</h1></p>
+<h4>Item Management</h4>
+<div class="settings_div">
+<div class="setting_options">
+  <button id="add_staff_btn" type="button" name="button">Add Item</button>
+  <button type="button" name="button">Edit</button>
+  <button type="button" name="button">Delete</button><br>
+  <input type="text" name="search" value="Enter transactions id">
+</div>
+<div class="settings_list" style="width: 40vw;border-radius: 5px;border: 3px solid #000;height: 60vh;overflow: scroll;">
+  <table style="width:100%">
+    <tr>
+      <th>UPC</th>
+      <th>Item Name</th>
+      <th>Discription</th>
+      <th>Price</th>
+    </tr>
+  {% if Items %}
+  {% for item in Items %}
+    <tr class="list_item">
+      <td>{{item.barcode}}</td>
+      <td>{{item.title}}</td>
+      <td>{{item.discription}}</td>
+      <td style="width:0pc"><input style="width:-webkit-fill-available" type="number" name="" value="{{item.price}}"></td>
+    </tr>
+  {% endfor %}
+  {%else%}
+  No cashlog history.
+  {% endif %}
+  </table>
+</div>
+</div>
+</div>
+{% endif %}
+
+{% endblock %}

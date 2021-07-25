@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    POS KING
+{% endblock %}
+
+{% block body %}
+{{stores}}
+{% if Store %}
+<div class="homemainbody">
+  <div id="reciept_lookup_sec" class="popupwin" style="width:30%;margin-left:35vw;min-width:600px;margin: auto 30% 0% 30%;">
+    <div id="reciept_x">&#215;</div>
+    <h4>Reciept</h4>
+    <div id="results_sec">
+    </div>
+  </div>
+<p><h1>Kings Point Of Sale System</h1></p>
+<h4>Transactions</h4>
+<div class="settings_div" style="padding: 10px;">
+<div class="setting_options">
+  <button id="view_btn" type="button" name="button">View</button>
+  <button id="refund_btn" type="button" name="button">Refund</button>
+  <button id="void_btn" type="button" name="button">Void</button>
+  <input type="text" name="search" value="Enter transactions id">
+</div>
+
+<div style="width: 100%;border: 3px solid #000;">
+<table>
+  <tr>
+    <th style="width: 10vw;padding-left: 10px;"><h6>#</h6></th>
+    <th style="width: 40vw;">Date</th>
+    <th style="width: 30vw;">Item Quantity</th>
+    <th style="width: 10vw;">Total</th>
+  </tr>
+</table>
+
+
+<div class="settings_list" style="width: 100%;border-radius: 5px;height: 60vh;overflow:scroll;">
+  <table style="width:100%;">
+  {% if Transactions %}
+    {% for transaction in Transactions %}
+    <tr id="transaction/{{transaction.id}}"class="list_item whiteline">
+      <td>{{transaction.id}}</td>
+      <td>{{transaction.time}}</td>
+      <td>{{transaction.cashier}}</td>
+      <td>{{transaction.items.all | length}} Items</td>
+      <td>{{transaction.total}}</td>
+      <td>{{transaction.status}}</td>
+      <td id="reciept/{{transaction.id}}" style="display: none">{{transaction.reciept.all.last.text| safe}}</td>
+    </tr>
+    {% endfor %}
+  {%else%}
+  No Transactions
+  {% endif %}
+  </table>
+</div>
+</div>
+</div>
+</div>
+{% endif %}
+
+{% endblock %}

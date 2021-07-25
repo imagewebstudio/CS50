@@ -1,0 +1,215 @@
+
+.homemainbody{
+  text-align: center;
+  text-align: -webkit-center;
+}
+.centertext{
+  text-align: center;
+  text-align: -webkit-center;
+}
+
+.videoheader {
+  background: #000;
+}
+
+.plansection {
+  display: inline-flex;
+  width: 100%;
+  padding-bottom: 18%;
+  box-shadow: 5px 10px 20px black inset;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+background-size: 400% 400%;
+animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+0% {
+    background-position: 0% 50%;
+}
+50% {
+    background-position: 100% 50%;
+}
+100% {
+    background-position: 0% 50%;
+}
+}
+
+.seflhostplan {
+  border: 5px solid blue;
+  width: 45%;
+  background: #fff;
+  margin-top: 10vh;
+  margin-left: 3.3vw;
+  border-radius: 25px;
+}
+
+.cloudplan {
+  border: 5px solid #000;
+  width: 45%;
+  background: #fff;
+  margin-top: 10vh;
+  margin-left: 3.3vw;
+  border-radius: 25px;
+}
+.cloudimage {
+  height: 10vw;
+}
+
+.bottomplansec {
+  height: 10vh;
+  background: #fff;
+  box-shadow: 5px -5px 20px black inset;
+}
+.popupwin {
+  position: absolute;
+  margin-left: 45vw;
+  margin-top: 20vh;
+  background: white;
+  padding: 5px;
+  box-shadow: 0 0 20px rgb(0 0 0 / 80%);
+  display: none;
+}
+#lookup_x {
+  float: right;
+  font-size: 2pc;
+  padding-right: 3px;
+}
+.lookup_x {
+  float: right;
+  font-size: 2pc;
+  padding-right: 3px;
+}
+#lookup_t_x {
+  float: right;
+  font-size: 2pc;
+  padding-right: 3px;
+}
+#checkout_button{
+  border-radius: 10px;
+  padding: 25px;
+  font-size: 24px;
+}
+.checkout_ready{
+  color: #f72d2d;
+  background: #2fbf15;
+  font-weight: bold;
+}
+.register_head {
+    display: inline-flex;
+    padding-top: 1%;
+}
+.register_body {
+    display: flow-root;
+}
+.item_view{
+  height: 150px;
+  text-align: left;
+}
+.item_list{
+  height: 400px;
+  overflow: scroll;
+}
+.item_total_sec{
+  float: left;
+  width: 50%;
+  text-align: left;
+  margin-left: 5px;
+}
+.item_image{
+  height: 100px;
+}
+.option_button{
+  width: 30%;
+}
+.number_amount{
+  margin-left: 45vw;
+  margin-top: 15%;
+  position: absolute;
+  padding: 10px;
+  background: white;
+  display: none;
+}
+.register_div{
+  max-width: 900px;
+  background: lightblue;
+}
+.register_right{
+  float: right;
+  width: 45%;
+}
+.upc_input{
+  width: 35vw;
+  margin-left: 10%;
+  max-width: 500px;
+}
+
+th {
+  padding-left: 5px;
+}
+td {
+  padding-left: 5px;
+}
+.selected{
+  background: darkblue;
+  color: white;
+  border-radius: 6px;
+}
+.total_sec{
+  width: 35vw;
+  max-width: 343px;
+}
+.upc_text{
+  padding-right: 30%;
+}
+button {
+  margin-bottom: 5px;
+}
+.register_buttons{
+  width: 20%;
+}
+.item_tag {
+  margin-left: 20px;
+  display: inline-block;
+  display: inline-flex;
+}
+.c_select {
+  border: 3px solid #0027ff;
+  font-size:25px;
+}
+.whiteline {
+ border-bottom: 1px solid #fff;
+}
+.item_model {
+  padding: 8px;
+}
+.refund_input {
+  width: 45px;
+  margin-left: 10px;
+  float: right;
+}
+.refund_sec {
+  background: purple;
+  border-radius: 3pc;
+  margin: 30px;
+  box-shadow: 0 0 20px rgb(0 0 0 / 80%);
+}
+.full_refund {
+  background: #d32525;
+  color: WHITE;
+  font-weight: BOLD;
+  padding: 10PX
+}
+.confirm_refund {
+  z-index: 1;
+  width: fit-content;
+  margin-left: 45%;
+  border-radius: 8px;
+  margin-top: -50vh;
+  display: block;
+  position: absolute;
+  background: white;
+  padding: 5px;
+  box-shadow: 0 0 20px rgb(0 0 0 / 80%);
+  text-align: center;
+  
+}

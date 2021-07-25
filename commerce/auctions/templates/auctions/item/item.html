@@ -1,0 +1,177 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+{% if message %}
+    {% if message == "success" %}
+    <div class="alert alert-success" role="alert">
+  Success! Your bid was made.
+</div>
+    {% else %}
+<div class="alert alert-danger role="alert">
+{{ message }}
+</div>
+    {% endif %}
+{% endif %}
+
+{% if Item%}
+{% csrf_token %}
+
+<script type="text/javascript">
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+  function change(button){
+
+    if (button.wish === 'made'){
+      document.getElementById('wishbutton').style.backgroundColor = '#fff';
+      document.getElementById('wishbutton').innerHTML = "Remove from Wishlist";
+    }
+    else if (button.wish === 'not'){
+      document.getElementById('wishbutton').style.backgroundColor = '#eae437';
+      document.getElementById('wishbutton').innerHTML = 'Add To Wishlist';
+    }
+
+  }
+
+  function endauction(){
+    const request = new Request(
+        "{% url 'endauction' %}",
+        {headers: {'X-CSRFToken': csrftoken}}
+    );
+    fetch(request, {
+        method: 'POST',
+        body: JSON.stringify({'item_id':'{{Item.id}}'}),
+        mode: 'same-origin'  // Do not send CSRF token to another domain.
+    }).then(data => {location.reload()})  }
+
+
+  function wish(){
+    const request = new Request(
+        "{% url 'wish'%}",
+        {headers: {'X-CSRFToken': csrftoken}}
+    );
+    fetch(request, {
+        method: 'POST',
+        body: JSON.stringify({'item_id':'{{Item.id}}'}),
+        mode: 'same-origin'  // Do not send CSRF token to another domain.
+    }).then(response => response.json())
+    .then(data => {change(data)})
+  }
+</script>
+
+<div style="padding-left: 15px;align-items:center;" class="row">
+  <h2><a class="nav-link" href="{% url 'viewitem' Item.id%}">{{Item.title}}</a></h2>
+  {% if user.is_authenticated %}{% if not Item.winningbidder %}
+  <span>
+  {% if Creator == user %}
+  <button type="button" id="wishbutton" style="border-radius: 10px;" name="removewish" onclick="endauction()">End Auction</button>
+  {%else%}
+      {% if user in itemwish %}
+      <button type="button" id="wishbutton" style="border-radius: 10px;" name="removewish" onclick="wish()">Remove from Wishlist</button>
+      {% else %}
+      <button type="button" id="wishbutton" name="addwish" style="background-color: #eae437;border-radius: 10px;" onclick="wish()">Add To Wishlist</button>
+      {% endif %}
+  {% endif %}</span>{% endif %}{% endif %}
+
+</div>
+
+
+<div style="padding-left: 15px;" class="row">
+  <div style="width: min-content;" class="column">
+    <img style="box-shadow: 0px 1px 4px #888888;"src="{{Item.image}}" width="300px" alt="Listing Item">
+    <p style="text-align: center;padding-bottom:1pc;"> <strong> Starting Price: {{Item.startprice}}</strong></p>
+
+
+
+    {% if Item.winningbidder%}
+       <div style="text-align:center;">
+          {% if Item.winningbidder.username == user.username%}
+          {% for bid in Bids %}
+            {% if forloop.first %}
+            <div style="background-color:blue;border-radius:15px;color:greenyellow;">
+          <h2><strong>Congratulations</strong></h2>
+          <p>You won this listing for<br> <strong style="font-size:25px">${{bid.price}}</strong></p>
+          </div>
+          {% else %}
+          {% endif %}
+            {% endfor %}
+        {% else %}
+        <div style="background-color:yellow;border-radius:15px;">
+        <strong style="color: red;">AUCTION ENDED ON </strong> <br><span style="font-size:14px">{{Item.ends}}</span>
+        <p>
+          User: <strong style="color:blue;">{{Item.winningbidder}}</strong> has won this listing for <br><span style="color: green;"><strong style="font-size:25px">${{Bids.0.price}}</strong></span>
+        </p></div>
+      {% endif %} </div>{% endif %}
+
+
+        {% if not Item.winningbidder%}
+        {% if user.is_authenticated %}
+        {% if not Item.creator == user%}
+        <form action="{% url 'newbid' %}" method="post"style="max-width: fit-content;">
+            {% csrf_token %}
+            <label for="bid">Place Bid:</label>
+            <input name="bidnumber" placeholder="Enter Bid" type="text">
+            <input name="item_id" hidden type="text" value="{{Item.id}}">
+            <button  type="submit" name="bid">Bid</button>
+        </form>
+        {% endif %}
+        {% endif %}
+        {%for bid in Bids%}
+        <ul>
+          {% if forloop.first %}
+          <div style="border: 2px solid black;background-color:gold;padding-left:5px;margin-right: 5px;">
+            <strong>Top Bid:</strong>
+            <strong>{{bid.user}}</strong> Bids <strong>${{bid.price}}</strong> <br>@ {{bid.date}}
+          </div>
+          {% else %}
+          User: <strong>{{bid.user}}</strong> Bids <strong>${{bid.price}}</strong> <br>@ {{bid.date}}
+          {% endif %}
+        </ul>
+        {% empty %}
+        <p style="text-align:center;padding-top:5px;">No bids have been placed.</p>
+          {% endfor %}
+          {% endif %}
+
+
+
+
+  </div>
+  <div style="padding-left: 15px;width: 60vw;" class="column">
+     <h5 style="text-align:center;">Description</h5>
+    <p style="width: 100%;min-height: 16pc;padding-top: 1pc;">{{Item.description}}</p>
+    {% if user.is_authenticated %}
+      <form action="{% url 'newcomment' %}" method="post">
+          {% csrf_token %}
+          <label for="comment">Leave Comment:</label>
+          <br>
+          <textarea style="width:100%;" type="text" name="comment" id="comment" placeholder="Leave a review or comment on this product"></textarea>
+          <br>
+          <input text="text" style="float:right" hidden name="Item_id" value="{{Item.id}}">
+          <input type="submit" style="float:right">
+      </form>
+      <br>
+    {% endif %}
+ <h5 style="text-align:center;">Comments & Reviews</h5>
+    {%for comment in comments%}
+    <div>{{item.id}}</div>
+    <p id="comments">
+      <table style="background-color:white;border-radius:25px;text-align:center;min-height:50px;margin:5px;width: 100%;box-shadow: 2px 2px 6px #888888;">
+        <tr>
+          <td style="background-color: #9b9b9b;border-top-left-radius: 15px;" name="username">User: <strong style="color:blue;">{{comment.user}}</strong></td>
+      <td>
+        <table>
+          <tr><td style="width: 650px;padding-top: 1pc;" name="commenttext">{{comment.text}}</td></tr>
+        </table>
+        </td>
+        </tr>
+        <td style="background-color: #ff9800;border-bottom-left-radius: 15px;background-color: rgb(255, 152, 0, .85);" style="font-size: 12px;" name="commenttime">{{comment.time}}</td>
+      </table>
+    </p>
+      {% empty %}
+      <p style="text-align:center;padding-top: 2pc;">No Reviews</p>
+    {% endfor %}
+  </div>
+</div>
+
+{% endif%}
+
+{% endblock %}

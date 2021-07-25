@@ -1,0 +1,93 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+
+{% if user.is_authenticated %}
+{% if user == Vuser %}
+<button class="createbtn"type="button" name="button" id="newpost">Create new post</button>
+{% endif %}
+
+<div class="vprofile">
+  <div class="profileinfo">
+      <img class="userpicpost" src="http://127.0.0.1:8000/static/images/userpic.png" alt="User profile picture"><br>
+      <strong>{{Vuser.username}}</strong>
+      <table>
+        <tr>
+          <td>Following |</td>
+          <td>Followed By</td>
+        </tr>
+        <tr>
+          <td>({{Vuser.following.all.count}})</td>
+          <td>({{Vuser.followed_by.all.count}})</td>
+        </tr>
+      </table>
+      {% if user != Vuser %}
+      {% if user in Vuser.following.all%}
+      <button id="follow" type="button" name="followbutton" value="{{Vuser.id}}">Unfollow</button>
+      {%else%}
+      <button id="follow" type="button" name="followbutton" value="{{Vuser.id}}">Follow</button>
+      {% endif %}
+      {% endif %}
+  </div>
+<div class="vpost">
+<div id="postcontainer" class="postcontainer">
+  {% for post in Post %}
+
+
+  <div id="post" class="post row">
+    <div class="postuserinfo column">
+        <img class="userpicpost" src="http://127.0.0.1:8000/static/images/userpic.png" alt="User profile picture">
+        <br>
+        <h3 class="postheader" id="postheader">{{post.user}}</h3>
+        <br> {{post.time}}
+    </div>
+    <div class="column postinfo">
+      {% if user == Vuser %}
+      <span id="edit"><button class="editbtn" id="edit/{{post.id}}" style="display: contents;" type="button" name="button"><i style="font-size:24px;float: right;" class="fa flipfa">&#9998;</i></button></span>
+      {% else %}
+      <span><button style="display: contents;" type="button" name="button"><i style="font-size:24px;float: right;color:white" class="fa flipfa">&#9998;</i></button></span>
+      {% endif %}
+      <div id="text/{{post.id}}" class="posttext row text/{{post.id}}">
+        {{post.text}}
+      </div>
+      <div class="likesec row">
+        <button id="like/{{post.id}}" type="button" class="likebtn"><i style="font-size:24px" class="fa">&#xf087;</i>({{post.liked_by.all.count}})</button>
+        <button id="unlike/{{post.id}}" type="button" name="dislike_button" class="dislikebtn"><i style="font-size:24px" class="fa">&#xf165;</i>({{post.unliked_by.all.count}})</button>
+      </div>
+    </div>
+      <div class="comments" id="comment_sec/{{post.id}}">
+        <button type="button" id="comment_btn/{{post.id}}" class="comment_button see_comments">see comments</button>
+      </div>
+    <textarea id="new_comment/{{post.id}}" rows="1" cols="50" name="comment_text" form="usrform" placeholder="Enter text here..."></textarea>
+  </div>
+
+  {% empty %}
+  <div class="empty">
+  No post from users.
+  </div>
+  {% endfor %}
+  </div>
+  <div class="pagination">
+      <span class="step-links">
+          {% if Post.has_previous %}
+              <a href="{% url 'viewuser' Vuser.id 1 %}">&laquo; first</a>
+              <a href="{% url 'viewuser' Vuser.id Post.previous_page_number %}">previous</a>
+          {% endif %}
+
+          <span class="current">
+              Page {{ Post.number }} of {{ Post.paginator.num_pages }}.
+          </span>
+
+          {% if Post.has_next %}
+              <a href="{% url 'viewuser' Vuser.id Post.next_page_number %}" id="page_button/{{ Post.next_page_number }}" name="page_button">next</a>
+              <a href="{% url 'viewuser' Vuser.id Post.paginator.num_pages %}" id="page_button/{{ Post.next_page_number }}" name="page_button">last &raquo;</a>
+          {% endif %}
+      </span>
+  </div>
+
+
+{% endif %}
+
+
+
+{% endblock %}

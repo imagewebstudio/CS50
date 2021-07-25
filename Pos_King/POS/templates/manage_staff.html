@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    POS KING
+{% endblock %}
+
+{% block body %}
+
+
+<div class="homemainbody">
+<p><h1>Kings Point Of Sale System</h1></p>
+<div class="">
+  {% for store in stores%}
+<button type="button" name="button">store.name</button>
+  {% endfor %}
+</div>
+<form action="{% url 'register' %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <input class="form-control" autofocus type="text" name="username" placeholder="Username">
+        <label for="Position">Position</label>
+    <select id="Position" name="Position">
+      <option value="3">Cashier</option>
+      <option value="6">Supervisor</option>
+    </select>
+    </div>
+
+    <div class="form-group">
+      <label for="ends">Date of birth:</label>
+      <br>
+    <input style="width:50%;" type="date" name="dob_date">
+    </div>
+
+    <div class="form-group">
+        <input class="form-control" type="email" name="email" placeholder="Email Address">
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="password" name="pin" placeholder="Login PIN">
+    </div>
+    <div class="form-group">
+        <input class="form-control" type="password" name="confirmation" placeholder="Confirm PIN">
+    </div>
+    <input class="btn btn-primary" type="submit" value="Register">
+</form>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+
+{% if user.is_authenticated %}
+
+<button class="createbtn"type="button" name="button" id="newpost">Create new post</button>
+<div id="postcontainer" class="postcontainer">
+
+{% for post in UPost %}
+
+  <div id="post" class="post row">
+    <div class="postuserinfo column">
+      <a href="{% url 'viewuser' post.user.id 1 %}">
+        <img class="userpicpost" src="http://127.0.0.1:8000/static/images/userpic.png" alt="User profile picture">
+        <br>
+        <h3 class="postheader" id="postheader">{{post.user}}</h3></a>
+        <br> {{post.time}}
+    </div>
+    <div class="column postinfo">
+      {% if user == Vuser %}
+      <span><button  style="display: contents;" type="button" name="button"><i style="font-size:24px;float: right;color:white" class="fa flipfa">&#9998;</i></button></span>
+      {% else %}
+      <span id="edit"><button class="editbtn" id="edit/{{post.id}}" style="display: contents;" type="button" name="button"><i style="font-size:24px;float: right;" class="fa flipfa">&#9998;</i></button></span>
+      {% endif %}
+      <div id="text/{{post.id}}" class="posttext row text/{{post.id}}">
+        {{post.text}}
+      </div>
+      <div class="likesec row">
+        <button id="like/{{post.id}}" type="button" class="likebtn"><i style="font-size:24px" class="fa">&#xf087;</i>({{post.liked_by.all.count}})</button>
+        <button id="unlike/{{post.id}}" type="button" name="dislike_button" class="dislikebtn"><i style="font-size:24px" class="fa">&#xf165;</i>({{post.unliked_by.all.count}})</button>
+      </div>
+    </div>
+      <div class="comments" id="comment_sec/{{post.id}}">
+        <button type="button" id="comment_btn/{{post.id}}" class="comment_button see_comments">see comments</button>
+      </div>
+    <textarea id="new_comment/{{post.id}}" rows="1" cols="50" name="comment_text" form="usrform" placeholder="Enter text here..."></textarea>
+  </div>
+{% empty %}
+<div id="empty" class="empty">
+No post from users you follow.
+</div>
+{% endfor %}
+</div>
+{% else %}
+
+{% for post in Post %}
+
+<div class="post row">
+  <div class="postuserinfo column">
+    <a href="viewuser/{{post.user.id}}/1">
+      <img class="userpicpost" src="static/images/userpic.png" alt="User profile picture">
+      <br>
+      <h3 class="postheader" id="postheader">{{post.user}}</h3>
+      </a>
+      <br> {{post.time}}
+  </div>
+  <div class="column postinfo">
+    <div class="posttext row">
+      {{post.text}}
+    </div>
+    <div class="likesec row">
+      <button type="button" class="likebtn"><i style="font-size:24px" class="fa">&#xf087;</i></button>
+      <button type="button" class="dislikebtn"><i style="font-size:24px" class="fa">&#xf165;</i></button>
+    </div>
+    <div class="">
+      <textarea style="margin-top: 6px;"rows="1" cols="50" name="comment" form="usrform">
+  Enter text here...</textarea>
+    </div>
+
+  </div>
+</div>
+
+{% empty %}
+<div class="empty">
+No post from users.
+</div>
+{% endfor %}
+
+
+{% endif %}
+
+{% endblock %}

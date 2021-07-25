@@ -1,0 +1,126 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Encyclopedia
+{% endblock %}
+
+{% block body%}
+{% if errorcode %}
+  {% if errorcode != 3 %}
+    <div class="alert alert-danger" style="max-width:99%;" role="alert">
+    <span class="closebtn" style="float:right;"onclick="this.parentElement.style.display='none';">&times;</span>
+      {% if errorcode == 1 %} Cannot create entry. Entry "{{etitle}}" already exist.{% endif %}
+      {% if errorcode == 2 %} Not a valid entry or url.{% endif %}
+      {% if errorcode == 4 %} No Entry Found. "{{lname}}" is not in encyclopedia.{% endif %}
+    </div>
+  {% endif %}
+    {% if errorcode == 3 %}
+        <div class="alert alert-success" style="max-width:99%;"role="alert">
+          <span class="closebtn" style="float:right;"onclick="this.parentElement.style.display='none';">&times;</span>
+          Success new entry created!
+        </div>
+    {% endif %}
+{% endif %}
+{% if errorcode == 1%}
+<h2>Current entry</h2>
+<li><a href="{{etitle}}">{{etitle}}</a></li>
+{% endif%}
+{% if entries %}
+<h1>All Pages</h1>
+  <ul>
+    {% for entry in entries %}
+      <a href="{{entry}}">{{ entry }}</a>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+{% if entrycontent %}
+
+  <script  type="text/javascript" onload="gettitle">
+    var title = '{{etitle}}';
+
+    function edit() {
+      document.theForm.submit();
+}
+
+
+function gettitle() {
+  if (title) {
+    document.querySelector("title").innerHTML = title;
+  }
+
+  }
+gettitle()
+
+document.eForm.submit(function(){
+    document.getElementById('titleinput').enabled;
+});
+
+  </script>
+  <div id="entry" style="width:90%;position:absolute;">
+    {% if results %}
+      <h2>Entries with "{{lname}}" in title.</h2>
+      {% for i in entrycontent%}
+          <li><a href="{{i}}">{{i}}</a></li>
+      {% endfor %}
+
+    {%elif revise == 1%}
+    <section>
+        <h1>Edit Entry</h1>
+        <form action="edit" id="formedit" name="eForm" method="post"style="width:100%;">
+          {% csrf_token %}
+            <h5>Entry Title</h5>
+            <input id="titleinput" class="search" value="{{etitle}}" style="pointer-events: none;" type="text" name="title">
+            <br></br>
+            <h5>Entry Detail</h5>
+            <textarea id="text" class="contentf" name="contentf" type="text" placeholder="Enter Text">{{entrycontent}}</textarea>
+            <br></br>
+            <button class="btn btn-primary" formaction="edit" type="submit" name="button">update</button>
+        </form>
+    {% else %}
+    <section style="width: fit-content">
+      {{entrycontent|safe}}
+      {% if not errorcode %}
+      <button type="button" name="editbutton" onclick="edit()"  class="btn btn-info">edit</button>
+      {% endif %}
+      <form action="alter" id="formedit" name="theForm" method="post" style="visibility:hidden;">
+        {% csrf_token %}
+          <h5>Entry Title</h5>
+          <input id="formedit" class="search" type="text" name="title" value='{{etitle}}'>
+      </form>
+    {% endif %}
+  </div>
+
+
+{% endif %}
+
+
+{% if newentry%}
+<section>
+<h1>Create New Entry</h1>
+<form id="search" action="savepage" method="post">
+  {% csrf_token %}
+    <input class="search" type="text" name="title" placeholder="Enter Title">
+    <br></br>
+    <textarea class="contentf" type="text" name="content" placeholder="Enter Detail"></textarea>
+    <br></br>
+    <button class="btn btn-primary" formaction="savepage" type="submit" form="search" name="button">Submit</button>
+</form>
+<script type="text/javascript">
+  function gettitle() {
+    title = document.querySelector('h1').innerHTML
+    document.querySelector("title").innerHTML = title;
+    }
+    gettitle()
+</script>
+</section>
+{% endif %}
+
+{% if randomentry%}
+<div id="random" markdown="1">
+{{randomentry|safe}}
+</div>
+{% endif %}
+
+
+{% endblock %}

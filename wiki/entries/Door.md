@@ -1,0 +1,1 @@
+<h1>Door</h1><p>The entrance object to enter the building.</p>

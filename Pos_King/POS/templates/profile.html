@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    POS KING
+{% endblock %}
+
+{% block body %}
+
+
+<div class="homemainbody">
+<p><h1>Kings Point Of Sale System</h1></p>
+status: {{status}}
+plan: {{membership}}
+<h1>Account Manager</h1>
+{{manager}}
+<h1>Stores</h1>
+{% for i in stores%}
+
+{{empyt}}
+<p>No stores. Click manage store to create new store.</p>
+{% endfor %}
+<a href="{% url 'stores' %}"><button type="button" name="button">Manage Store</button></a>
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    POS KING
+{% endblock %}
+
+{% block body %}
+
+
+<div class="homemainbody">
+<p><h1>Kings Point Of Sale System</h1></p>
+<h4>Manage Store Settings</h4>
+<a href="../{{Store.name}}/Items"><button type="button" name="button">Manage Items</button></a><br>
+<a href="../{{Store.name}}/Inventory"><button type="button" name="button">Manage Inventory</button></a><br>
+<a href="../{{Store.name}}/Transactions"><button type="button" name="button">Manage Transactions</button></a><br>
+<a href="../{{Store.name}}/Staff"><button type="button" name="button">Manage Staff</button></a><br>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    POS KING
+{% endblock %}
+
+{% block body %}
+{{stores}}
+{% if Store%}
+<div class="homemainbody">
+<p><h1>Kings Point Of Sale System</h1></p>
+<h4>Cashlog</h4>
+<data value="settings_div">
+<div class="setting_options">
+  <button type="button" name="button">View</button>
+  <button type="button" name="button">Edit</button>
+  <button type="button" name="button">Delete</button><br>
+  <input type="text" name="search" value="Enter transactions id">
+</div>
+<div class="settings_list">
+  {% if Cashlog %}
+  {% for cashlogged in Cashlog %}
+  <button type="button" name="button">{{cashlogged}}</button>
+  {% endfor %}
+  {%else%}
+  No cashlog history.
+  {% endif %}
+</div>
+</data>
+</div>
+{% endif %}
+
+{% endblock %}

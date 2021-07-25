@@ -1,0 +1,39 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+<div style="text-align:center;text-align: -webkit-center;">
+    <h2>Profile Settings</h2>
+
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+<div class="profilecon">
+  <div class="namepic">
+    <img class="userpic" src="static/images/userpic.png" alt="User profile picture"><br>
+    <strong>{{ user.username }}</strong><i style="font-size:24px" class="fa flipfa">&#9998;</i>
+    <table style="text-align:center;">
+      <tr>
+        <td>Following</td>
+        <td>Followed By</td>
+      </tr>
+      <tr>
+        <td>({{Following|length}})</td>
+        <td>({{Followedby|length}})</td>
+      </tr>
+    </table>
+  </div>
+  <div class="userinfo">
+    <div class="proemail">
+      Email: {{ user.email }}
+    </div>
+    <div class="prodob">
+      Age: {{ user.dob }}
+    </div>
+    <div class="propass">
+      Password: <button type="button" name="button">Update</button>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

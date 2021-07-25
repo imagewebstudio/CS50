@@ -1,0 +1,78 @@
+textarea {
+  min-height: 400px;
+}
+.alertsuccess{
+  background-color: #1fc344;
+  border-radius: 5px;
+  margin-bottom: 1pc;
+}
+.alerterror{
+  background-color: #ea0505;
+  border-radius: 5px;
+  margin-bottom: 1pc;
+  color: #fff;
+}
+.sender{
+  margin-left: 10px;
+  color: white;
+  font-size: 2ch;
+}
+.title {
+  margin-left: 10px;
+  margin-bottom: 0px;
+  font-size: 1.1rem;
+}
+.email {
+  border-radius: 5px;
+  background-color: #098cff;
+  color: black;
+  margin-bottom: .5pc;
+  height: 110px;
+  overflow: hidden;
+  width: 80vw;
+  -webkit-box-shadow:0 3px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+   -moz-box-shadow:0 3px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+        box-shadow:0 3px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.preview {
+  text-align: left;
+  background-color: white;
+  height: 100%;
+}
+
+.timestamp {
+  float: right;
+  padding-right: 10px;
+  font-weight: bold;
+  display: grid;
+  color: #fff;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.headerbuttons {
+  color: #e6001c;
+  border-color: #007bff;
+  vertical-align: middle;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 400;
+}
+
+.container{
+  margin-left: 9%;
+  margin-right: 9%;
+}
+.mailbuttons{
+  background-color: #ffc107;
+  border-radius: 5px;
+  margin: 3px;
+}
+.archived{
+  background-color: #ba8e0a;
+  border-radius: 5px;
+}

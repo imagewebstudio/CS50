@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    POS KING
+{% endblock %}
+
+{% block body %}
+
+
+<div class="homemainbody">
+  <div class="videoheader centertext">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/gSA2KYNYDzk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+  </div>
+<div class="plansection">
+  <div class="seflhostplan centertext">
+    <p>Host on your own server.</p>
+    <img class="cloudimage"  src="../static/images/selfhost.png" alt="cloud with computer in it">
+    <br>
+    <button type="button" name="button">Download</button>
+    <br>
+    <a href="#">more info</a>
+  </div>
+  <div class="cloudplan centertext">
+    <img class="cloudimage"  src="../static/images/cloud_register.png" alt="cloud with computer in it">
+    <p>Cloud Subcription</p>
+    <button href="{% url 'register' %}" type="button" name="button">Sign up</button>
+    <br>
+    <a href="#">more info</a>
+  </div>
+</div>
+<div class="bottomplansec">
+
+</div>
+</div>
+
+
+{% endblock %}

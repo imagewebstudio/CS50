@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    POS KING
+{% endblock %}
+{% if Message %}
+<h3>Item creation {{Message}}</h3>
+{% endif %}
+
+{% block body %}
+{% if Store%}
+<div class="homemainbody">
+<p><h1>Kings Point Of Sale System</h1></p>
+<h4>Manage Inventory</h4>
+<div class="settings_div">
+<div class="setting_options">
+  <button id="View_Inventory" type="button" name="button">View Inventory Movement</button><br>
+  <button id="add_inventory" type="button" name="button">Add Inventory</button>
+  <button id="remove_inventory"type="button" name="button">Remove Inventory</button><br>
+</div>
+<div class="settings_list" style="width: 40vw;border-radius: 5px;border: 3px solid #000;height: 60vh;overflow: scroll;">
+  <table style="width:100%">
+    <tr>
+      <th>UPC</th>
+      <th>Item Name</th>
+      <th>Discription</th>
+      <th>Quantity</th>
+    </tr>
+    {%if Inventory%}
+    {% for item in Inventory %}
+    <tr class="list_item">
+      <td>{{item.barcode}}</td>
+      <td>{{item.title}}</td>
+      <td>{{item.discription}}</td>
+      <td>{{item.stock}}</td>
+    </tr>
+  {% endfor %}
+  {%else%}
+  No Items
+  {% endif %}
+  </table>
+</div>
+</div>
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,1 @@
+<h1>Hats</h1><p>hats are a type of covering you wear on your head.</p>

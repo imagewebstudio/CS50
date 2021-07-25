@@ -1,0 +1,59 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+
+{% if user.is_authenticated %}
+
+{% for post in Post %}
+
+  <div id="post" class="post row">
+    <div class="postuserinfo column">
+      <a href="{% url 'viewuser' post.user.id 1 %}">
+        <img class="userpicpost" src="http://127.0.0.1:8000/static/images/userpic.png" alt="User profile picture">
+        <br>
+        <h3 class="postheader" id="postheader">{{post.user}}</h3></a>
+        <br> {{post.time}}
+    </div>
+    <div class="column postinfo">
+      <span><button  style="display: contents;" type="button" name="button"><i style="font-size:24px;float: right;color:white" class="fa flipfa">&#9998;</i></button></span>
+      <div id="text/{{post.id}}" class="posttext row text/{{post.id}}">
+        {{post.text}}
+      </div>
+      <div class="likesec row">
+        <button id="like/{{post.id}}" type="button" class="likebtn"><i style="font-size:24px" class="fa">&#xf087;</i>({{post.liked_by.all.count}})</button>
+        <button id="unlike/{{post.id}}" type="button" name="dislike_button" class="dislikebtn"><i style="font-size:24px" class="fa">&#xf165;</i>({{post.unliked_by.all.count}})</button>
+      </div>
+    </div>
+      <div class="comments" id="comment_sec/{{post.id}}">
+        <button type="button" id="comment_btn/{{post.id}}" class="comment_button see_comments">see comments</button>
+      </div>
+    <textarea id="new_comment/{{post.id}}" rows="1" cols="50" name="comment_text" form="usrform" placeholder="Enter text here..."></textarea>
+  </div>
+{% empty %}
+<div class="empty">
+No post from users.
+</div>
+{% endfor %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if Post.has_previous %}
+            <a href="{% url 'public' 1 %}">&laquo; first</a>
+            <a href="{% url 'public' Post.previous_page_number %}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ Post.number }} of {{ Post.paginator.num_pages }}.
+        </span>
+
+        {% if Post.has_next %}
+            <a href="{% url 'public' Post.next_page_number %}" id="page_button/{{ Post.next_page_number }}" name="page_button">next</a>
+            <a href="{% url 'public' Post.paginator.num_pages %}" id="page_button/{{ Post.next_page_number }}" name="page_button">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+
+{% endif %}
+
+{% endblock %}
